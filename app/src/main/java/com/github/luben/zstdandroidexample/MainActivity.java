@@ -9,7 +9,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.github.luben.zstd.Zstd;
+
 public class MainActivity extends AppCompatActivity {
+
+    public void loadTest() {
+        byte[] in = new byte[0];
+        byte[] compressed = Zstd.compress(in);
+        byte[] ob = new byte[100];
+        assert(Zstd.decompress(ob, compressed) == 0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Test running", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                loadTest();
             }
         });
     }
